@@ -16,37 +16,87 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
           crossorigin="anonymous"/>
     <body>
-        <div class="container-fluid text-white justify-content-end border text-end" style="height:100%; width:100%; background-color: black; position:absolute">
-            <div class="row border justify-content-end">
-                <div class="col-3">
+        <div class="container-fluid text-white justify-content-end border text-end" id="inventory-container" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row border justify-content-end" style="margin-bottom:10vh">
+                <div class="col-6">
                     <button id="add-button">
                         Add an item
                     </button>
+                    <button id="warehouse-button">
+                        Add a warehouse
+                    </button>
                 </div>
             </div>
-            <div class="row h-100 border" style="margin-left:20%; margin-right:20%">
-                <div class="col my-auto border" style="height:50%">
-                  <div class="card card-block text-black text-center inactive" id="add-item-form" style="height:100%; font-weight:600">
-                      <div class="row" style="margin-bottom:15%">
-                        <div class="col-5" style="margin-left:30%">
-                            <h5>Add an item<h5>
-                        </div>
-                        <div class="col-3 text-end">
-                            <button id="close-add-form">X</button>
-                        </div>
-                      <div>
-                      <form>
-                          <h6>Item title</h6>
-                          <input type="text" placeholder="Title of item" style="width:75%; margin-bottom:5%;">
-                          <h6>Quantity</h6>
-                          <input type="number" placeholder="Quantity" style="width:25%; margin-bottom:3%; min-width: 150px;">
-                          <h6>Add a description</h6>
-                          <textarea type="text" placeholder="Description" style="width:75%; margin-bottom:3%">
-                          </textarea>
-                      </form>
-                  </div>
+            <div class="row border text-white text-start">
+                <div class="col-12 text-center">
+                   <h5 id="add-title">Click "Add an item" to get started!</h5> 
                 </div>
-             </div>
+                <div class="col-12">
+                    <ul id="inventory-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid text-white justify-content-end border text-end inactive" id="add-item-form" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row border justify-content-center border" style="position:absolute; margin-top:25vh; width:100%; ">
+                <div class="col my-auto border" id="item-form" style="height:50%; max-width:600px">
+                    <div class="card card-block text-black text-center" style="height:100%; font-weight:600; min-width: 150px">
+                        <div class="row border">
+                            <div class="col-4" id="card-header"></div>
+                            <div class="col-5">
+                                <h5 id="header"><h5>
+                            </div>
+                            <div class="col-3 text-end">
+                                <button id="close-add-form">X</button>
+                            </div>
+                        </div>
+                        <div class="row text-danger">
+                            <h5 id="add-error"></h5>
+                        </div>
+                        <div style="margin-top:7%">
+                            <h6>Item title</h6>
+                            <input type="text" id="item-title" placeholder="Title of item" style="width:75%; height:15%; margin-bottom:5%;">
+                            <h6>Quantity</h6>
+                            <input type="number" id="item-quantity" placeholder="Quantity" style="width:25%; margin-bottom:3%; min-width: 150px;">
+                            <h6>Add a description</h6>
+                            <textarea id="item-description" placeholder="Description" style="width:50%; height:20%; margin-bottom:5%; margin-left:25%; display:flex"></textarea>
+                            <div class="col" id="buttons">
+                                <button id="action-button"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid text-white justify-content-end border text-end" id="add-warehouse-form" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row border justify-content-center border" style="position:absolute; margin-top:25vh; width:100%; ">
+                <div class="col my-auto border" id="item-form" style="height:50%; max-width:450px">
+                    <div class="card card-block text-black text-center" style="height:100%; font-weight:600; min-width: 150px">
+                        <div class="row border">
+                            <div class="col-5" style="margin-left:30%">
+                                <h5 id="header">Add a warehouse<h5>
+                            </div>
+                            <div class="col-3 text-end">
+                                <button id="close-warehouse-form">X</button>
+                            </div>
+                        </div>
+                        <div class="row text-danger">
+                            <h5 id="add-error"></h5>
+                        </div>
+                        <div style="margin-top:7%">
+                            <h6>Warehouse id or name</h6>
+                            <input type="text" id="warehouse-id" placeholder="Name" style="width:50%; height:15%; margin-bottom:5%;">
+                            <h6>Warehouse Location</h6>
+                            <input type="text" id="warehouse-location" placeholder="Location" style="width:50%; margin-bottom:3%; min-width: 150px;">
+                            <h6>Warehouse Manager</h6>
+                            <input id="warehouse-manager" placeholder="Manager" style="width:50%; height:20%; margin-bottom:5%; margin-left:25%; display:flex"></input>
+                            <div class="col" id="buttons">
+                                <button id="add-warehouse-button">Add warehouse</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="./app.js"></script>
     </body>
