@@ -1,3 +1,4 @@
+// Constants for ease of updating code
 const addId = "add-item-form";
 const warehouseId = "add-warehouse-form";
 const warehouseName = "warehouse-id";
@@ -16,6 +17,7 @@ const warehouseList = "warehouse-list";
 let items = {};
 let warehouses = {};
 
+// General on click event listeners
 document.addEventListener("click", (event) => {
 
     target = document.getElementById(event.target.id);
@@ -62,6 +64,7 @@ document.addEventListener("click", (event) => {
     }
 })
 
+// Display the add item form
 function unhideForm()
 {
     const form = document.getElementById(addId);
@@ -88,6 +91,7 @@ function unhideForm()
     button.onclick = addItem.bind(addItem, event)
 }
 
+// Hide the add item form
 function hideForm()
 {
     const form = document.getElementById(addId);
@@ -107,6 +111,7 @@ function hideForm()
     list.classList.remove("inactive");
 }
 
+// Hide the add warehouse form
 function hideWarehouse()
 {
     const form = document.getElementById(warehouseId);
@@ -126,6 +131,7 @@ function hideWarehouse()
     list.classList.remove("inactive");
 }
 
+// Display the add warehouse form
 function unhideWarehouse()
 {
     const form = document.getElementById(warehouseId);
@@ -134,6 +140,7 @@ function unhideWarehouse()
     list.classList.add("inactive");
 }
 
+// Add item to list and item hashmap
 function addItem(e)
 {
     e.preventDefault();
@@ -185,6 +192,7 @@ function addItem(e)
 
 }
 
+// Display the edit item form
 function editItem(itemName)
 {
 
@@ -249,6 +257,7 @@ function editItem(itemName)
     button.onclick = updateItem.bind(updateItem, itemName);
 }
 
+// Update the item with the new information
 function updateItem(itemName)
 {
     console.warn(itemName);
@@ -284,6 +293,7 @@ function updateItem(itemName)
     hideForm();
 }
 
+// Delete an item
 function deleteItem(itemName)
 {
     delete items[itemName];
@@ -292,6 +302,7 @@ function deleteItem(itemName)
     hideForm();
 }
 
+// Add a warehouse
 function addWarehouse()
 {
     document.getElementById("warehouse-header").innerHTML = "";
@@ -322,6 +333,7 @@ function addWarehouse()
 
 }
 
+// Add an item to a warehouse
 function addToWarehouse(itemName)
 {
     document.getElementById("warehouse-title").innerHTML = "Click on a warehouse to add item";
@@ -355,6 +367,7 @@ function addToWarehouse(itemName)
     warehouseOverlay.classList.remove("inactive");
 }
 
+// View a list of all warehouses
 function viewWarehouses()
 {
     document.getElementById("warehouse-title").innerHTML = "Click on a warehouse to view contents";
@@ -383,6 +396,7 @@ function viewWarehouses()
     warehouseOverlay.classList.remove("inactive");
 }
 
+// Display the items of a warehouse
 function warehouseContent(warehouseName)
 {
     document.getElementById("warehouse-content-title").innerHTML = "Click an item to remove it from this warehouse";
@@ -411,6 +425,7 @@ function warehouseContent(warehouseName)
     warehouseContent.classList.remove("inactive");
 }
 
+// Remove an item from a warehouse
 function removeFromWarehouse(itemName)
 {
     document.getElementById(`warehouse-${itemName}`).remove();
