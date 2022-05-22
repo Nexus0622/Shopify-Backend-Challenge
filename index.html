@@ -16,8 +16,13 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
           crossorigin="anonymous"/>
     <body>
-        <div class="container-fluid text-white justify-content-end border text-end" id="inventory-container" style="height:100%; width:100%; background-color: black; position:absolute">
-            <div class="row border justify-content-end" style="margin-bottom:10vh">
+        <div class="container-fluid text-white justify-content-end text-end" id="inventory-container" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row justify-content-end" style="margin-bottom:10vh">
+                <div class="col-6 text-start">
+                    <button id="view-warehouses">
+                        View warehouses
+                    </button>
+                </div>
                 <div class="col-6">
                     <button id="add-button">
                         Add an item
@@ -27,7 +32,7 @@
                     </button>
                 </div>
             </div>
-            <div class="row border text-white text-start">
+            <div class="row text-white text-start">
                 <div class="col-12 text-center">
                    <h5 id="add-title">Click "Add an item" to get started!</h5> 
                 </div>
@@ -37,11 +42,11 @@
             </div>
         </div>
 
-        <div class="container-fluid text-white justify-content-end border text-end inactive" id="add-item-form" style="height:100%; width:100%; background-color: black; position:absolute">
-            <div class="row border justify-content-center border" style="position:absolute; margin-top:25vh; width:100%; ">
-                <div class="col my-auto border" id="item-form" style="height:50%; max-width:600px">
+        <div class="container-fluid text-white justify-content-end text-end inactive" id="add-item-form" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row justify-content-center" style="position:absolute; margin-top:25vh; width:100%; ">
+                <div class="col my-auto" id="item-form" style="height:50%; max-width:600px">
                     <div class="card card-block text-black text-center" style="height:100%; font-weight:600; min-width: 150px">
-                        <div class="row border">
+                        <div class="row">
                             <div class="col-4" id="card-header"></div>
                             <div class="col-5">
                                 <h5 id="header"><h5>
@@ -68,11 +73,12 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid text-white justify-content-end border text-end" id="add-warehouse-form" style="height:100%; width:100%; background-color: black; position:absolute">
-            <div class="row border justify-content-center border" style="position:absolute; margin-top:25vh; width:100%; ">
-                <div class="col my-auto border" id="item-form" style="height:50%; max-width:450px">
+
+        <div class="container-fluid text-white justify-content-end text-end inactive" id="add-warehouse-form" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row justify-content-center" style="position:absolute; margin-top:25vh; width:100%; ">
+                <div class="col my-auto" id="item-form" style="height:50%; max-width:450px">
                     <div class="card card-block text-black text-center" style="height:100%; font-weight:600; min-width: 150px">
-                        <div class="row border">
+                        <div class="row">
                             <div class="col-5" style="margin-left:30%">
                                 <h5 id="header">Add a warehouse<h5>
                             </div>
@@ -80,8 +86,8 @@
                                 <button id="close-warehouse-form">X</button>
                             </div>
                         </div>
-                        <div class="row text-danger">
-                            <h5 id="add-error"></h5>
+                        <div class="row text-black">
+                            <h5 id="warehouse-header"></h5>
                         </div>
                         <div style="margin-top:7%">
                             <h6>Warehouse id or name</h6>
@@ -98,6 +104,37 @@
                 </div>
             </div>
         </div>
+
+        <div class="container-fluid text-white text-end inactive" id="warehouse-container" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row text-white text-start">
+                <div class="col-4">
+                    <button id="return-button">
+                        Return to item list
+                    </button>
+                </div>
+                <div class="col-12 text-center">
+                   <h5 id="warehouse-title"></h5> 
+                </div>
+                <div class="col-12" id="warehouse-list">
+                </div>
+            </div>
+        </div>
+
+         <div class="container-fluid text-white text-end inactive" id="warehouse-content" style="height:100%; width:100%; background-color: black; position:absolute">
+            <div class="row text-white text-start">
+                <div class="col-4">
+                    <button id="return-to-warehouse">
+                        Return to warehouse list
+                    </button>
+                </div>
+                <div class="col-12 text-center">
+                   <h5 id="warehouse-content-title"></h5> 
+                </div>
+                <div class="col-12" id="warehouse-content-list">
+                </div>
+            </div>
+        </div>
+
         <script src="./app.js"></script>
     </body>
 </html>

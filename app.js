@@ -11,6 +11,7 @@ const listId = "inventory-list";
 const header = document.getElementById("add-title");
 const addErr = document.getElementById("add-error");
 const listContainer = "inventory-container";
+const warehouseList = "warehouse-list";
 
 let items = {};
 let warehouses = {};
@@ -40,6 +41,25 @@ document.addEventListener("click", (event) => {
 
     if (target.id == "add-warehouse-button")
         addWarehouse()
+    
+    if (target.id == "view-warehouses")
+    {
+        viewWarehouses();
+    }
+    
+    if (target.id == "return-button")
+    {
+        document.getElementById("warehouse-container").classList.add("inactive");
+        document.getElementById("warehouse-ul").remove();
+        hideForm();
+    }
+
+    if (target.id == "return-to-warehouse")
+    {
+        document.getElementById("warehouse-content").classList.add("inactive");
+        document.getElementById("warehouse-container").classList.remove("inactive");
+        document.getElementById("warehouse-content-ul").remove();
+    }
 })
 
 function unhideForm()
@@ -100,7 +120,7 @@ function hideWarehouse()
     warehouseLocation.value = "";
     warehouseManage.value = "";
 
-    
+    document.getElementById("warehouse-header").innerHTML = "";
 
     form.classList.add("inactive");
     list.classList.remove("inactive");
@@ -161,11 +181,7 @@ function addItem(e)
 
     header.innerHTML = "Click an item to view details";
 
-    const form = document.getElementById(addId);
-    const invList = document.getElementById(listContainer);
-
-    form.classList.add("inactive");
-    invList.classList.remove("inactive");
+    hideForm();
 
 }
 
@@ -255,6 +271,16 @@ function updateItem(itemName)
     prevItem.innerHTML =  item.title + `  (${item.quantity})`;
     prevItem.id = itemTitle;
 
+    for (let key in warehouses)
+    {
+        if (itemName in warehouses[key].items)
+        {   
+            console.log("This is working");
+            delete warehouses[key].items[itemName];
+            warehouses[key].items[itemTitle] = item;
+        }
+    }
+
     hideForm();
 }
 
@@ -268,9 +294,19 @@ function deleteItem(itemName)
 
 function addWarehouse()
 {
+    document.getElementById("warehouse-header").innerHTML = "";
     let warehouseName = document.getElementById("warehouse-id").value;
     let warehouseLoc = document.getElementById("warehouse-location").value;
     let warehouseManager = document.getElementById("warehouse-manager").value;
+
+    if (warehouseName == "")
+    {
+        document.getElementById("warehouse-header").innerHTML = "Please enter a warehouse name"
+        return;
+    }
+
+    if (warehouseName in warehouses)
+        return;
 
     let warehouse = {
         name:warehouseName,
@@ -281,10 +317,101 @@ function addWarehouse()
 
     warehouses[warehouseName] = warehouse;
 
-    hideWarehouse();
+    document.getElementById("warehouse-header").innerHTML = "";
+    document.getElementById("warehouse-header").innerHTML =  `${warehouseName} successfully added!`;
+
 }
 
-function addToWarehouse()
+function addToWarehouse(itemName)
 {
-    console.log("woorking");
+    document.getElementById("warehouse-title").innerHTML = "Click on a warehouse to add item";
+    let warehouseOverlay = document.getElementById("warehouse-container");
+    let form = document.getElementById(addId);
+    let ul = document.createElement("ul");
+    ul.setAttribute("id", "warehouse-ul")
+
+    for (let key in warehouses)
+    {
+        let li = document.createElement("li");
+        li.setAttribute("id", key);
+        li.setAttribute("class", "warehouse-list");
+        li.innerHTML = key;
+        li.addEventListener("click", () => {
+
+            if (itemName in warehouses[key].items)
+                return;
+
+            warehouses[key].items[itemName] = {itemName: items[itemName].quantity}; 
+            document.getElementById("warehouse-title").innerHTML = `Successfully added to ${key}`;
+            console.log(warehouses[key].items)
+        })
+    
+        ul.appendChild(li);
+    }
+
+    document.getElementById(warehouseList).appendChild(ul);
+
+    form.classList.add("inactive");
+    warehouseOverlay.classList.remove("inactive");
+}
+
+function viewWarehouses()
+{
+    document.getElementById("warehouse-title").innerHTML = "Click on a warehouse to view contents";
+    let warehouseOverlay = document.getElementById("warehouse-container");
+    let form = document.getElementById(addId);
+    let ul = document.createElement("ul");
+    ul.setAttribute("id", "warehouse-ul")
+
+    for (let key in warehouses)
+    {
+        let li = document.createElement("li");
+        li.setAttribute("id", key);
+        li.setAttribute("class", "warehouse-list");
+        li.innerHTML = key;
+        li.addEventListener("click", () => {
+            warehouseContent(key) 
+            console.log(warehouses[key].items)
+        })
+    
+        ul.appendChild(li);
+    }
+
+    document.getElementById(warehouseList).appendChild(ul);
+
+    form.classList.add("inactive");
+    warehouseOverlay.classList.remove("inactive");
+}
+
+function warehouseContent(warehouseName)
+{
+    document.getElementById("warehouse-content-title").innerHTML = "Click an item to remove it from this warehouse";
+    let warehouseContent = document.getElementById("warehouse-content");
+    let form = document.getElementById(addId);
+    let ul = document.createElement("ul");
+    ul.setAttribute("id", "warehouse-content-ul")
+
+    for (let key in warehouses[warehouseName].items)
+    {
+        let li = document.createElement("li");
+        li.setAttribute("id", `warehouse-${key}`);
+        li.setAttribute("class", "warehouse-content-list");
+        li.innerHTML = key;
+        li.addEventListener("click", () => {
+            delete warehouses[warehouseName].items[key];
+            removeFromWarehouse(key);
+        })
+    
+        ul.appendChild(li);
+    }
+
+    document.getElementById("warehouse-content-list").appendChild(ul);
+
+    form.classList.add("inactive");
+    warehouseContent.classList.remove("inactive");
+}
+
+function removeFromWarehouse(itemName)
+{
+    document.getElementById(`warehouse-${itemName}`).remove();
 }
